@@ -40,10 +40,11 @@ CREATE TABLE SpotifyClone.cancoes(
   FOREIGN KEY(album_id) REFERENCES SpotifyClone.albuns(album_id)
 ) engine = InnoDB;
 
-CREATE TABLE SpotifyClone.historico_de_reproducoes(
+CREATE TABLE SpotifyClone.historico_de_reproducao(
   usuario_id INT NOT NULL,
   cancao_id INT NOT NULL,
-  data_reproducao DATETIME,
+  data_reproducao TIMESTAMP NOT NULL,
+  PRIMARY KEY (usuario_id, cancao_id, data_reproducao),
   FOREIGN KEY(usuario_id) REFERENCES SpotifyClone.usuarios(usuario_id),
   FOREIGN KEY(cancao_id) REFERENCES SpotifyClone.cancoes(cancao_id)
 ) engine = InnoDB;
@@ -51,114 +52,113 @@ CREATE TABLE SpotifyClone.historico_de_reproducoes(
 CREATE TABLE SpotifyClone.artistas_seguidos(
   usuario_id INT NOT NULL,
   artista_id INT NOT NULL,
+  PRIMARY KEY (usuario_id, artista_id),
   FOREIGN KEY(usuario_id) REFERENCES SpotifyClone.usuarios(usuario_id),
   FOREIGN KEY(artista_id) REFERENCES SpotifyClone.artistas(artista_id)
 ) engine = InnoDB;
 
 INSERT INTO
-  SpotifyClone.planos (plano_id, plano, valor_plano)
+  SpotifyClone.planos (plano, valor_plano)
 VALUES
-  (1, 'gratuito', 0),
-  (2, 'familiar', 7.99),
-  (3, 'universitario', 5.99),
-  (4, 'pessoal', 6.99);
+  ('gratuito', 0),
+  ('familiar', 7.99),
+  ('universitario', 5.99),
+  ('pessoal', 6.99);
 
 INSERT INTO
   SpotifyClone.usuarios (
-    usuario_id,
     usuario,
     idade,
     plano_id,
     data_assinatura
   )
 VALUES
-  (1, "Thati", 23, 1, "2019-10-20"),
-  (2, "Cintia", 35, 2, "2017-12-30"),
-  (3, "Bill", 20, 3, "2019-06-05"),
-  (4, "Roger", 45, 4, "2020-05-23"),
-  (5, "Norman", 58, 4, "2017-02-17"),
-  (6, "Patrick", 33, 2, "2017-01-06"),
-  (7, "Vivian", 26, 3, "2018-01-05"),
-  (8, "Carol", 19, 3, "2018-02-14"),
-  (9, "Angelina", 42, 2, "2018-04-29"),
-  (10, "Paul", 46, 2, "2017-01-17");
+  ("Thati", 23, 1, "2019-10-20"),
+  ("Cintia", 35, 2, "2017-12-30"),
+  ("Bill", 20, 3, "2019-06-05"),
+  ("Roger", 45, 4, "2020-05-23"),
+  ("Norman", 58, 4, "2017-02-17"),
+  ("Patrick", 33, 2, "2017-01-06"),
+  ("Vivian", 26, 3, "2018-01-05"),
+  ("Carol", 19, 3, "2018-02-14"),
+  ("Angelina", 42, 2, "2018-04-29"),
+  ("Paul", 46, 2, "2017-01-17");
 
 INSERT INTO
-  SpotifyClone.artistas (artista_id, artista)
+  SpotifyClone.artistas (artista)
 VALUES
-  (1, 'Walter Phoenix'),
-  (2, 'Peter Strong'),
-  (3, 'Lance Day'),
-  (4, 'Freddie Shannon'),
-  (5, 'Tyler Isle'),
-  (6, 'Fog');
+  ('Walter Phoenix'),
+  ('Peter Strong'),
+  ('Lance Day'),
+  ('Freddie Shannon'),
+  ('Tyler Isle'),
+  ('Fog');
 
 INSERT INTO
-  SpotifyClone.albuns (album_id, album, artista_id, ano_lancamento)
+  SpotifyClone.albuns (album, artista_id, ano_lancamento)
 VALUES
-  (1, 'Envious', 1, 1990),
-  (2, 'Exuberant', 1, 1993),
-  (3, 'Hallowed Steam', 2, 1995),
-  (4, 'Incandescent', 3, 1998),
-  (5, 'Temporary Culture', 4, 2001),
-  (6, 'Library of liberty', 4, 2003),
-  (7, 'Chained Down', 5, 2007),
-  (8, 'Cabinet of fools', 5, 2012),
-  (9, 'No guarantees', 5, 2015),
-  (10, 'Apparatus', 6, 2015);
+  ('Envious', 1, 1990),
+  ('Exuberant', 1, 1993),
+  ('Hallowed Steam', 2, 1995),
+  ('Incandescent', 3, 1998),
+  ('Temporary Culture', 4, 2001),
+  ('Library of liberty', 4, 2003),
+  ('Chained Down', 5, 2007),
+  ('Cabinet of fools', 5, 2012),
+  ('No guarantees', 5, 2015),
+  ('Apparatus', 6, 2015);
 
 INSERT INTO
   SpotifyClone.cancoes (
-    cancao_id,
     cancao,
     artista_id,
     album_id,
     duracao_segundos
   )
 VALUES
-  (1, "Soul For Us", 1, 1, 200),
-  (2, "Reflections Of Magic", 1, 1, 163),
-  (3, "Dance With Her Own", 1, 1, 116),
-  (4, "Troubles Of My Inner Fire", 1, 2, 203),
-  (5, "Time Fireworks", 1, 2, 152),
-  (6, "Magic Circus", 2, 3, 105),
-  (7, "Honey, So Do I", 2, 3, 207),
-  (8, "Sweetie, Let's Go Wild", 2, 3, 139),
-  (9, "She Knows", 2, 3, 244),
-  (10, "Fantasy For Me", 3, 4, 100),
-  (11, "Celebration Of More", 3, 4, 146),
-  (12, "Rock His Everything", 3, 4, 223),
-  (13, "Home Forever", 3, 4, 231),
-  (14, "Diamond Power", 3, 4, 241),
-  (15, "Let's Be Silly", 3, 4, 132),
-  (16, "Thang Of Thunder", 4, 5, 240),
-  (17, "Words Of Her Life", 4, 5, 185),
-  (18, "Without My Streets", 4, 5, 176),
-  (19, "Need Of The Evening", 4, 6, 190),
-  (20, "History Of My Roses", 4, 6, 222),
-  (21, "Without My Love", 4, 6, 111),
-  (22, "Walking And Game", 4, 6, 123),
-  (23, "Young And Father", 4, 6, 197),
-  (24, "Finding My Traditions", 5, 7, 179),
-  (25, "Walking And Man", 5, 7, 229),
-  (26, "Hard And Time", 5, 7, 135),
-  (27, "Honey, I'm A Lone Wolf", 5, 7, 150),
-  (28, "She Thinks I Won't Stay Tonight", 5, 8, 166),
-  (29, "He Heard You're Bad For Me", 5, 8, 154),
-  (30, "He Hopes We Can't Stay", 5, 8, 210),
-  (31, "I Know I Know", 5, 8, 117),
-  (32, "He’s Walking Away", 5, 9, 159),
-  (33, "He’s Trouble", 5, 9, 138),
-  (34, "I Heard I Want To Bo Alone", 5, 9, 120),
-  (35, "I Ride Alone", 5, 9, 151),
-  (36, "Honey", 6, 10, 79),
-  (37, "You Cheated On Me", 6, 10, 95),
-  (38, "Wouldn't It Be Nice", 6, 10, 213),
-  (39, "Baby", 6, 10, 136),
-  (40, "You Make Me Feel So..", 6, 10, 83);
+  ("Soul For Us", 1, 1, 200),
+  ("Reflections Of Magic", 1, 1, 163),
+  ("Dance With Her Own", 1, 1, 116),
+  ("Troubles Of My Inner Fire", 1, 2, 203),
+  ("Time Fireworks", 1, 2, 152),
+  ("Magic Circus", 2, 3, 105),
+  ("Honey, So Do I", 2, 3, 207),
+  ("Sweetie, Let's Go Wild", 2, 3, 139),
+  ("She Knows", 2, 3, 244),
+  ("Fantasy For Me", 3, 4, 100),
+  ("Celebration Of More", 3, 4, 146),
+  ("Rock His Everything", 3, 4, 223),
+  ("Home Forever", 3, 4, 231),
+  ("Diamond Power", 3, 4, 241),
+  ("Let's Be Silly", 3, 4, 132),
+  ("Thang Of Thunder", 4, 5, 240),
+  ("Words Of Her Life", 4, 5, 185),
+  ("Without My Streets", 4, 5, 176),
+  ("Need Of The Evening", 4, 6, 190),
+  ("History Of My Roses", 4, 6, 222),
+  ("Without My Love", 4, 6, 111),
+  ("Walking And Game", 4, 6, 123),
+  ("Young And Father", 4, 6, 197),
+  ("Finding My Traditions", 5, 7, 179),
+  ("Walking And Man", 5, 7, 229),
+  ("Hard And Time", 5, 7, 135),
+  ("Honey, I'm A Lone Wolf", 5, 7, 150),
+  ("She Thinks I Won't Stay Tonight", 5, 8, 166),
+  ("He Heard You're Bad For Me", 5, 8, 154),
+  ("He Hopes We Can't Stay", 5, 8, 210),
+  ("I Know I Know", 5, 8, 117),
+  ("He’s Walking Away", 5, 9, 159),
+  ("He’s Trouble", 5, 9, 138),
+  ("I Heard I Want To Bo Alone", 5, 9, 120),
+  ("I Ride Alone", 5, 9, 151),
+  ("Honey", 6, 10, 79),
+  ("You Cheated On Me", 6, 10, 95),
+  ("Wouldn't It Be Nice", 6, 10, 213),
+  ("Baby", 6, 10, 136),
+  ("You Make Me Feel So..", 6, 10, 83);
 
 INSERT INTO
-  SpotifyClone.historico_de_reproducoes (usuario_id, cancao_id, data_reproducao)
+  SpotifyClone.historico_de_reproducao (usuario_id, cancao_id, data_reproducao)
 VALUES
   (1, 36, "2020-02-28 10:45:55"),
   (1, 25, "2020-05-02 05:30:35"),
