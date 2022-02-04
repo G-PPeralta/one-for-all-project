@@ -90,7 +90,7 @@ VALUES
   ('Walter Phoenix'),
   ('Peter Strong'),
   ('Lance Day'),
-  ('Freddie Shannon'),
+  ('Freedie Shannon'),
   ('Tyler Isle'),
   ('Fog');
 
