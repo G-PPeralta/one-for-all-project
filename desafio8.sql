@@ -3,10 +3,6 @@ SELECT
   ab.album
 FROM
   SpotifyClone.artistas AS a
-  INNER JOIN SpotifyClone.albuns AS ab
-WHERE
-  artista LIKE 'Walter Phoenix'
-ORDER BY
-  a.artista
-LIMIT
-  2;
+  LEFT JOIN SpotifyClone.albuns AS ab ON a.artista_id = ab.artista_id 
+  WHERE artista LIKE 'Walter Phoenix'
+ORDER BY album ASC;
